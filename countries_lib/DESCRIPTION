@@ -1,0 +1,9 @@
+Package: countries_lib
+Type: Package
+Title: Normalize country name
+Version: 1.0
+Date: 2017-07-24
+Author: Aleksey Pauls
+Maintainer: Who to complain to <yourfault@somewhere.net>
+Description: More about what it does (maybe more than one line).
+License: What license is it under?
