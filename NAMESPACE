@@ -1,0 +1,4 @@
+exportPattern("^[[:alpha:]]+")
+importFrom(stringr, str_replace_all)
+importFrom(stringr, str_trim)
+importFrom(stringdist, amatch)
