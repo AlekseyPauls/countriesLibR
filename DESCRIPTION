@@ -6,7 +6,8 @@ Date: 2017-07-24
 Author: Aleksey Pauls
 Maintainer: Aleksey Pauls <aleksey.pauls@mail.ru>
 Description: This package provides three functions (normalize_country_name, match_country_name and del_country_name). 
+Depends:
+    R (>= 2.14)
+    stringr
+    stringdist
 License: Free
-Imports: 
-        stringr
-	stringdist
