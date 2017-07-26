@@ -1,0 +1,13 @@
+﻿Package: countries_lib
+Type: Package
+Title: Normalize country name
+Version: 1.0
+Date: 2017-07-24
+Author: Aleksey Pauls
+Maintainer: Aleksey Pauls <aleksey.pauls@mail.ru>
+Description: This package provides three functions (normalize_country_name, match_country_name and del_country_name)
+for work with simple database. 
+License: Free
+Imports: 
+        stringr
+	stringdist
