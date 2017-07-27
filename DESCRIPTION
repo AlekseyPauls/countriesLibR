@@ -1,12 +1,13 @@
 Package: countriesLibR
 Type: Package
-Title: Normaliae country name
-Version: 0.1.0
+Title: Normalize country name
+Version: 1.0
 Author: Aleksey Pauls
 Maintainer: Aleksey Pauls <aleksey.pauls@mail.ru>
-Description: Ta-ta-ta
-License: Free
+Description: Find more information on https://github.com/AlekseyPauls/countriesLibR.
+License: MIT
 Encoding: UTF-8
 Imports:
     stringr,
     stringdist
+Suggests: testthat
