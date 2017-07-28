@@ -69,7 +69,7 @@ test_that("normalize_country_name of american_paris_like_construction", {
 })
 
 test_that("normalize_country_name and standard accuracy result", {
-  input <- c("azazaza", "345135353134", "IAmTheHackerman")
+  input <- c("azazaza", "fgfg1341341dfadfadf", "IAmTheHackerman")
   output <- c("None", "None", "None")
   expect_equal(normalize_country_name(input), output)
 })
@@ -77,7 +77,7 @@ test_that("normalize_country_name and standard accuracy result", {
 test_that("normalize_country_name and correct accuracy", {
   input <- c("Russia", "America", "Китай")
   Encoding(input) <- "UTF-8"
-  input_dif_acc <- 1
+  input_dif_acc <- 0.4
   output <- c("Russia", "United States", "China")
   expect_equal(normalize_country_name(input, input_dif_acc), output)
 })

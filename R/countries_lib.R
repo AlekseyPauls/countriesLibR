@@ -23,7 +23,7 @@ normalize_country_name = function(posnames, dif_acc=0.2) {
 # Приводим входные значения к удобному виду и проверяем их правильность после преобразований
   posnames <- enc2utf8(posnames)
   posnames <- tolower(posnames)
-  punct <- '[]\\?!\"#$%&(){}+*/:;,._|~\\[<=>@\\^-]123456789'
+  punct <- '[]\\?!\"#$%123456789&(){}+*/:;,._|~\\[<=>@\\^-]'
   posnames <- str_replace_all(posnames, punct, " ")
   posnames <- str_replace_all(posnames, "\\s+", " ")
   posnames <- str_trim(posnames, side = "both")
@@ -133,7 +133,7 @@ match_country_name = function(posnames, realnames, priorities="2") {
 # Ключи приводятся к удобному виду
   posnames <- enc2utf8(posnames)
   posnames <- tolower(posnames)
-  punct <- '[]\\?!\"#$%&(){}+*/:;,._|~\\[<=>@\\^-]'
+  punct <- '[]\\?!\"#$%123456789&(){}+*/:;,._|~\\[<=>@\\^-]'
   posnames <- str_replace_all(posnames, punct, "")
   posnames <- str_replace_all(posnames, "\\s+", " ")
   posnames <- str_trim(posnames, side = "both")
