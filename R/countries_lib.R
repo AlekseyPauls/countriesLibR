@@ -1,9 +1,21 @@
+#' Normalize_country_name
+#'
+#' Countries names normalization (find the correct)
+#'
+#' @param posnames Character vector of countries names to normalization.
+#' @param dif_acc Float accuracy parametr of string matching. Must be from 0.0 to 1.0
+#' @return Character vector of normalized names. Contains common names if normalizing was successful and "None" if not or unit vector "Invalid arguments" if types of arguments aren`t correct (for example, zero length names in argument posnames or incorrect type of dif_acc).
+#' @examples
+#' normalize_country_name("Russia")
+#' vect <- c("ru", "en", "usa") # posnames
+#' normalize_country_name(vect)
+#' normalize_country_name("United States", 0.3)
 normalize_country_name = function(posnames, dif_acc=0.2) {
 # Игнорировать предупреждения во время работы
   options(warn=-1)
 
 # Проверяем правильность параметров, инициализируем ответ значениями "None" (не найдено), загружаем б/д
-  if (typeof(dif_acc) != "double" | length(dif_acc) == 0 | dif_acc < 0 | length(posnames) == 0 |
+  if (typeof(dif_acc) != "double" | length(dif_acc) == 0 | dif_acc <= 0 | dif_acc >= 1 | length(posnames) == 0 |
       typeof(posnames) != "character") return("Invalid arguments")
   answers <- rep("None", length(posnames))
   load(system.file("data", "countries_db.RData", package = "countriesLibR"))
@@ -11,7 +23,7 @@ normalize_country_name = function(posnames, dif_acc=0.2) {
 # Приводим входные значения к удобному виду и проверяем их правильность после преобразований
   posnames <- enc2utf8(posnames)
   posnames <- tolower(posnames)
-  punct <- '[]\\?!\"#$%&(){}+*/:;,._|~\\[<=>@\\^-]'
+  punct <- '[]\\?!\"#$%&(){}+*/:;,._|~\\[<=>@\\^-]123456789'
   posnames <- str_replace_all(posnames, punct, " ")
   posnames <- str_replace_all(posnames, "\\s+", " ")
   posnames <- str_trim(posnames, side = "both")
@@ -87,6 +99,21 @@ normalize_country_name = function(posnames, dif_acc=0.2) {
 }
 
 
+#' Match_country_name
+#'
+#' Add countries names to database
+#'
+#' @param posnames Character vector of possible countries names.
+#' @param realnames Character vector of official(common) countries names.
+#' @param priorities Character vector of priorities. Takes values "1" or "2". Priorities should have same length with posnames, otherwise will be initialized priorities vector with length of posnames and value "2".
+#' @return Unit character vector "Success" if matching was correct, or unit vector "Invalid arguments" if types of arguments aren`t correct (for example, zero length names in argument posnames or diffrent length of posnames and realnames).
+#' @examples
+#' match_country_name("Rassiya", "Russia")
+#' vect_1 <- c("ru", "en", "usa") # posnames
+#' vetc_2 <- c("Russia", "United Kingdom", "United States") #realnames
+#' match_country_name(vect_1, vect_2)
+#' vect_3 <- c("1", "2", "1") # priorities
+#' match_country_name(vect_1, vect_2, vect_3)
 match_country_name = function(posnames, realnames, priorities="2") {
 # Игнорировать предупреждения во время работы
   options(warn=-1)
@@ -95,12 +122,12 @@ match_country_name = function(posnames, realnames, priorities="2") {
   load(system.file("data", "countries_db.RData", package = "countriesLibR"))
 
 # Сравниваем длины векторов ключей, значений и приоритетов, инициализируем вектор приоритетов при необходимости
-  if (length(posnames) != length(realnames) | length(priorities) > length(posnames)) return("Invalid arguments")
+  if (length(posnames) != length(realnames)) return("Invalid arguments")
   for (i in 1:length(priorities)) {
     if (length(priorities[i]) == 0) return("Invalid arguments")
     else if (priorities[i] != "1" & priorities[i] != "2") return("Invalid arguments")
   }
-  if (length(priorities) < length(posnames)) priorities <- rep("2", length(posnames))
+  if (length(priorities) != length(posnames)) priorities <- rep("2", length(posnames))
 
 # На основе входных данных создаем таблицу данных и соединяем ее с загруженной.
 # Ключи приводятся к удобному виду
@@ -132,6 +159,16 @@ match_country_name = function(posnames, realnames, priorities="2") {
 }
 
 
+#' Del_country_name
+#'
+#' Delete countries names from database
+#'
+#' @param posnames Character vector of possible countries names.
+#' @return Unit character vector "Success" if deleting was correct, or unit vector "Invalid arguments" if type of argument isn`t correct (for example, zero length names in argument posnames).
+#' @examples
+#' del_country_name("Russia")
+#' vect <- c("ru", "en", "usa") # posnames
+#' del_country_name(vect)
 del_country_name = function(posnames) {
 # Игнорировать предупреждения во время работы
   options(warn=-1)
